@@ -4,12 +4,26 @@ require([
   "esri/views/MapView",
   "esri/widgets/BasemapGallery",
   "esri/layers/FeatureLayer",
-  // "esri/views/SceneView"
-], function(Map, MapView, BasemapGallery, FeatureLayer) {
+  // "esri/views/SceneView",
+  "esri/Basemap",
+  "esri/layers/VectorTileLayer"
+], function(Map, MapView, BasemapGallery, FeatureLayer, Basemap, VectorTileLayer) {
 
-var map = new Map({
-  basemap: "topo-vector"
-});
+  var basemap = new Basemap({
+    baseLayers: [
+      new VectorTileLayer({
+        portalItem: {
+          id: "d2ff12395aeb45998c1b154e25d680e5" // Forest and Parks Canvas
+        }
+      })
+    ]
+  });
+
+  var map = new Map({
+    //*** ADD ***//
+    // basemap: "topo-vector",
+    basemap: basemap
+  });
 
 var view = new MapView({
   container: "viewDiv",
