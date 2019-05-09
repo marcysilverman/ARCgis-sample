@@ -2,6 +2,7 @@
 require([
   "esri/Map",
   "esri/views/MapView",
+  "esri/views/SceneView",
   "esri/layers/FeatureLayer",
   "esri/Basemap",
   "esri/layers/VectorTileLayer",
@@ -9,7 +10,7 @@ require([
   "esri/WebMap",
   "esri/widgets/Legend",
   "esri/widgets/ScaleBar"
-], function(Map, MapView, FeatureLayer, Basemap, VectorTileLayer, TileLayer, WebMap, Legend, ScaleBar) {
+], function(Map, MapView, SceneView, FeatureLayer, Basemap, VectorTileLayer, TileLayer, WebMap, Legend, ScaleBar) {
 
 
   var basemap = new Basemap({
@@ -42,9 +43,18 @@ var map = new WebMap({
 });
 
 //*** ADD ***//
-var view = new MapView({
+var view = new SceneView({
   container: "viewDiv",
-  map: map
+  map: map,
+  center: [-118.71511,34.09042],
+  zoom: 10
+});
+view.when(function(){
+  view.goTo({
+    center: [-118.80543,34.02700],
+    zoom: 13,
+    tilt: 70
+  })
 });
 
 var legend = new Legend({
@@ -187,11 +197,11 @@ map.add(openspaces,0);
 
 map.add(trailheads);
 
-// map.add(featureLayer);
-// view.ui.add(basemapGallery, "top-right");
-//   var featureLayer = new FeatureLayer({
-//   url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0"
-// });
+var newFeatureLayer = new FeatureLayer({
+  url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0"
+});
+
+map.add(newFeatureLayer);
 
 // map.add(trailheads);
 
