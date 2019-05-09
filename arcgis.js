@@ -2,13 +2,15 @@
 require([
   "esri/Map",
   "esri/views/MapView",
-  "esri/widgets/BasemapGallery",
   "esri/layers/FeatureLayer",
-  // "esri/views/SceneView",
   "esri/Basemap",
   "esri/layers/VectorTileLayer",
-  "esri/layers/TileLayer"
-], function(Map, MapView, BasemapGallery, FeatureLayer, Basemap, VectorTileLayer, TileLayer) {
+  "esri/layers/TileLayer",
+  "esri/WebMap",
+  "esri/widgets/Legend",
+  "esri/widgets/ScaleBar"
+], function(Map, MapView, FeatureLayer, Basemap, VectorTileLayer, TileLayer, WebMap, Legend, ScaleBar) {
+
 
   var basemap = new Basemap({
     baseLayers: [
@@ -32,22 +34,28 @@ require([
     basemap: basemap
   });
 
-var view = new MapView({
-  container: "viewDiv",
-  map: map,
-  center: [-118.71511,34.09042],
-  zoom: 8,
-});
 
-var basemapGallery = new BasemapGallery({
-  view: view,
-  source: {
-    portal: {
-      url: "https://www.arcgis.com",
-      useVectorBasemaps: false // Load vector tile basemaps
-    }
+var map = new WebMap({
+  portalItem: {
+    id: "41281c51f9de45edaf1c8ed44bb10e30"
   }
 });
+
+//*** ADD ***//
+var view = new MapView({
+  container: "viewDiv",
+  map: map
+});
+
+var legend = new Legend({
+  view: view
+});
+view.ui.add(legend, "top-right");
+
+var scalebar = new ScaleBar({
+  view: view
+});
+view.ui.add(scalebar, "bottom-left");
 
 var trailheadsRenderer = {
   "type": "simple",
