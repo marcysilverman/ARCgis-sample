@@ -6,15 +6,22 @@ require([
   "esri/layers/FeatureLayer",
   // "esri/views/SceneView",
   "esri/Basemap",
-  "esri/layers/VectorTileLayer"
-], function(Map, MapView, BasemapGallery, FeatureLayer, Basemap, VectorTileLayer) {
+  "esri/layers/VectorTileLayer",
+  "esri/layers/TileLayer"
+], function(Map, MapView, BasemapGallery, FeatureLayer, Basemap, VectorTileLayer, TileLayer) {
 
   var basemap = new Basemap({
     baseLayers: [
+      new TileLayer({
+        portalItem: {
+          id: "1b243539f4514b6ba35e7d995890db1d" // World Hillshade
+        }
+      }),
       new VectorTileLayer({
         portalItem: {
           id: "d2ff12395aeb45998c1b154e25d680e5" // Forest and Parks Canvas
-        }
+        },
+        opacity: 0.5
       })
     ]
   });
